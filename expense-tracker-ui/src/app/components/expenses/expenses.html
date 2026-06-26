@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="header">
+    <h2>💸 Smart Expense Tracker</h2>
+    <p>Manage your group expenses seamlessly</p>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="card form-card">
+      <h3>{{ isEditMode ? 'Edit Expense' : 'Add New Expense' }}</h3>
+
+      <div class="form-group">
+        <label>Description</label>
+        <input
+          type="text"
+          [(ngModel)]="newExpense.description"
+          placeholder="e.g. Dinner at Monal"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label>Total Amount (Rs)</label>
+        <input
+          type="number"
+          [(ngModel)]="newExpense.totalAmount"
+          placeholder="e.g. 5000"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label>Paid By</label>
+        <input
+          type="text"
+          [(ngModel)]="newExpense.paidBy"
+          placeholder="Enter Name"
+          class="form-control"
+        />
+      </div>
+
+      <div style="display: flex; gap: 10px">
+        <button class="btn-submit" (click)="saveExpense()" style="flex: 1">
+          {{ isEditMode ? 'Update Data' : 'Save Expense' }}
+        </button>
+        <button
+          *ngIf="isEditMode"
+          class="btn-submit"
+          (click)="resetForm()"
+          style="background-color: #95a5a6; flex: 1"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <div class="card table-card">
+      <h3>Recent Expenses</h3>
+      <p *ngIf="expensesList.length === 0" class="loading-text">No expenses found or loading...</p>
+
+      <table *ngIf="expensesList.length > 0" class="styled-table">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Paid By</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let exp of expensesList">
+            <td>
+              <strong>{{ exp.description }}</strong>
+            </td>
+            <td class="amount">Rs. {{ exp.totalAmount }}</td>
+            <td>
+              <span class="badge">{{ exp.paidBy }}</span>
+            </td>
+            <td>
+              <span class="status" [ngClass]="exp.isSettled ? 'settled' : 'pending'">
+                {{ exp.isSettled ? 'Settled ✔' : 'Pending ⏳' }}
+              </span>
+            </td>
+            <td>
+              <button class="btn-action btn-edit" (click)="editExpense(exp)">✏️ Edit</button>
+              <button
+                *ngIf="!exp.isSettled"
+                class="btn-action btn-settle"
+                (click)="settleExpense(exp)"
+              >
+                ✔ Settle
+              </button>
+              <button class="btn-action btn-delete" (click)="deleteExpense(exp.id)">
+                🗑 Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
