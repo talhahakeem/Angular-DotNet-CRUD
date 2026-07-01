@@ -1,4 +1,4 @@
-# Full-Stack CRUD Implementation: Angular & ASP.NET Core Web API  
+# Full-Stack CRUD Implementation: Angular & ASP.NET Core Web API 
 
 A professional and clean implementation of Full-Stack CRUD (Create, Read, Update, Delete) operations, demonstrating decoupled architecture, asynchronous data flow, and relational data persistence. This project serves as a hands-on exercise in connecting a modern reactive frontend with a robust backend API.
 
